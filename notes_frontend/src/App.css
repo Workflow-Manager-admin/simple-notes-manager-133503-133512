@@ -1,0 +1,315 @@
+:root {
+  --primary: #1976d2;
+  --secondary: #424242;
+  --accent: #ff4081;
+  --bg-main: #fff;
+  --bg-panel: #f8f9fa;
+  --border: #e0e0e0;
+  --text: #282c34;
+  --text-light: #ffffff;
+  --sidebar-width: 260px;
+  --radius: 10px;
+  --transition: 0.18s cubic-bezier(.6,0,.6,1);
+}
+
+/* Accent override for dark mode only (rarely applies since theme light is default) */
+[data-theme="dark"] {
+  --bg-main: #23272f;
+  --bg-panel: #2d323b;
+  --text: #e3eaf6;
+  --border: #353945;
+  --secondary: #212121;
+}
+
+body, html, .App {
+  background: var(--bg-main);
+  color: var(--text);
+  height: 100%;
+  min-height: 100vh;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.notes-app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  background: var(--bg-main);
+  padding: 0.5rem 2rem 0.5rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.theme-toggle {
+  background: var(--accent);
+  color: var(--text-light);
+  border: none;
+  border-radius: var(--radius);
+  padding: 7px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+  margin-left: 10px;
+  box-shadow: 0 1.5px 4px 0 rgba(0,0,0,0.08);
+}
+.theme-toggle:hover {
+  background: var(--primary);
+  color: var(--text-light);
+}
+
+.layout {
+  display: flex;
+  min-height: 70vh;
+  flex: 1 1 auto;
+}
+
+.sidebar {
+  background: var(--secondary);
+  color: var(--text-light);
+  width: var(--sidebar-width);
+  min-width: 170px;
+  padding: 0 0.8rem;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.sidebar-header {
+  padding: 1.3rem 0 0.4rem 7px;
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar-header h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  letter-spacing: 1.2px;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 7.2px 18px;
+  margin: 0.3em 0 0.5em 0;
+  background: #e0e0e0;
+  color: #222;
+  font-weight: 500;
+  transition: background var(--transition), color var(--transition);
+  cursor: pointer;
+}
+.btn.primary {
+  background: var(--primary);
+  color: var(--text-light);
+}
+.btn.danger {
+  background: #e53935;
+  color: var(--text-light);
+}
+.btn.accent {
+  background: var(--accent);
+  color: var(--text-light);
+}
+.btn:hover, .btn:focus-visible {
+  background: var(--secondary);
+  color: var(--accent);
+}
+
+.note-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+.note-list li {
+  background: transparent;
+  color: var(--text-light);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.75rem 0.7rem 0.7rem;
+  margin-bottom: 0.3em;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  font-size: 1rem;
+  opacity: 0.96;
+  text-align: left;
+  border: 1px solid transparent;
+}
+.note-list li.selected, .note-list li:hover {
+  background: var(--bg-main);
+  color: var(--primary);
+  border: 1px solid var(--accent);
+}
+
+.note-title {
+  font-weight: 600;
+}
+.note-snippet {
+  font-size: 0.94rem;
+  color: var(--accent);
+  padding-top: 2.5px;
+  opacity: 0.8;
+}
+.empty-list {
+  color: #aaa;
+  font-size: 0.98rem;
+  text-align: center;
+  margin-top: 1em;
+}
+
+.panel {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 2rem clamp(1rem, 2vw, 2.8rem);
+  background: var(--bg-panel);
+  min-height: 77vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.note-view {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.note-view-title {
+  margin: 0 0 0.66em 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+.note-content {
+  margin: 0 0 1em 0;
+  font-size: 1.07em;
+  background: transparent;
+  border: none;
+  min-height: 60px;
+  font-family: inherit;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text);
+}
+.placeholder {
+  color: #bbb;
+  font-style: italic;
+  letter-spacing: 1.2px;
+}
+.actions-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 0.45em;
+  margin-bottom: 0.3em;
+  flex-wrap: wrap;
+}
+
+.note-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  max-width: 525px;
+}
+.input.title {
+  font-size: 1.32rem;
+  font-weight: 600;
+  border: 1.4px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 13px;
+  color: var(--primary);
+  background: #fafbfc;
+}
+.input.content {
+  min-height: 130px;
+  font-size: 1.07rem;
+  padding: 10px 9px;
+  resize: vertical;
+  border-radius: var(--radius);
+  border: 1.4px solid var(--border);
+  color: var(--text);
+  background: #f8f9fb;
+}
+
+.loading {
+  font-size: 1.25em;
+  opacity: 0.85;
+  text-align: center;
+  margin: 1.5em 0;
+}
+.error {
+  color: #e53935;
+  font-weight: 600;
+  font-size: 1.09em;
+  margin: 1em 0;
+  padding: 1em 0.5em 1em 0.3em;
+  background: #fff3f1;
+  border-radius: var(--radius);
+  text-align: center;
+}
+.empty-state {
+  color: var(--primary);
+  text-align: center;
+  margin-top: 2em;
+  opacity: 0.8;
+}
+.footer {
+  margin-top: auto;
+  width: 100%;
+  background: var(--bg-main);
+  border-top: 1px solid var(--border);
+  padding: 0.8em 0 0.85em 0;
+  font-size: 1em;
+  color: #888;
+  text-align: center;
+  opacity: 0.94;
+}
+
+/* Responsive Layout */
+@media (max-width: 900px) {
+  .sidebar {
+    min-width: 120px;
+    width: 25vw;
+  }
+  .panel {
+    padding: 1.4rem 2vw;
+    min-height: 62vh;
+  }
+}
+@media (max-width: 650px) {
+  .App, .notes-app-root {
+    font-size: 94%;
+  }
+  .sidebar {
+    min-width: 68px;
+    width: 38vw;
+    padding: 0 0.2rem;
+  }
+  .panel {
+    padding: 1.05rem 2vw;
+  }
+  .header, .footer {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    font-size: 0.96em;
+  }
+  .sidebar-header {
+    font-size: 1.05rem;
+    padding-top: 0.5rem;
+  }
+}
